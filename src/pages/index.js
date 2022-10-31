@@ -1,5 +1,7 @@
 import * as React from "react"
-import { Link } from 'gatsby'
+import { Link, useStaticQuery, graphql } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
+import { title } from '../components/titleTest.module.css'
 
 const pageStyles = {
   color: "#232129",
@@ -19,6 +21,16 @@ const paragraphStyles = {
 }
 
 const IndexPage = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+
   return (
     <main style={pageStyles}>
       <h1 style={headingStyles}>
@@ -26,7 +38,11 @@ const IndexPage = () => {
         <br />
         <span style={headingAccentStyles}>— you just made a Gatsby site! 🎉🎉🎉</span>
       </h1>
+      <p className={ title }>{ data.site.siteMetadata.title }</p>
       <Link to={'/about'}>About</Link>
+      <StaticImage
+        src="../images/image5.jpeg"
+      />
       <p style={paragraphStyles}>
         This is just a test. Go back to your desk.
       </p>
